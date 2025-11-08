@@ -1,0 +1,187 @@
+.lesson-list-container {
+  width: 95%;
+  margin: 2rem auto;
+  display: flex;
+  gap: 2rem;
+}
+
+/* Filters Sidebar */
+.filters-sidebar {
+  width: 300px;
+  background: #f7f7f7;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.filters-sidebar h3 {
+  margin-top: 0;
+  color: #e40714;
+  border-bottom: 2px solid #e40714;
+  padding-bottom: 0.5rem;
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group h4 {
+  margin: 0 0 0.75rem 0;
+  color: #333;
+  font-size: 1em;
+}
+
+/* Search Input */
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9em;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #e40714;
+}
+
+/* Price Range */
+.price-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price-input {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.price-input:focus {
+  outline: none;
+  border-color: #e40714;
+}
+
+/* Checkbox Groups */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9em;
+  cursor: pointer;
+  padding: 0.25rem 0;
+}
+
+.checkbox-label input[type='checkbox'] {
+  margin: 0;
+}
+
+/* Sort Select */
+.sort-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: #e40714;
+}
+
+/* Reset Button */
+.reset-btn {
+  width: 100%;
+  padding: 10px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+}
+
+.reset-btn:hover {
+  background: #5a6268;
+}
+
+/* Main Content */
+.lessons-main {
+  flex: 1;
+}
+
+.results-info {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #f7f7f7;
+  border-radius: 8px;
+  color: #666;
+  font-style: italic;
+  text-align: center;
+}
+
+.lessons-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  background: #f7f7f7;
+  border-radius: 12px;
+  color: #666;
+  width: 100%;
+}
+
+.no-results p {
+  margin: 0 0 1rem 0;
+  font-size: 1.1em;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .lesson-list-container {
+    flex-direction: column;
+  }
+
+  .filters-sidebar {
+    width: 100%;
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .lesson-list-container {
+    width: 90%;
+  }
+
+  .price-inputs {
+    flex-wrap: wrap;
+  }
+
+  .checkbox-group {
+    max-height: 150px;
+  }
+}
