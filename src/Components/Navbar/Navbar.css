@@ -1,0 +1,66 @@
+.navbar {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #e40714;
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.logo {
+  margin: 0;
+  margin-left: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  margin-right: 20px;
+  padding: 0;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1em;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  font-family: inherit;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Cart count badge */
+.nav-link[onclick*='cart'] {
+  position: relative;
+}
+
+.nav-link[onclick*='cart']::after {
+  content: attr(data-count);
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ffc107;
+  color: #333;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
