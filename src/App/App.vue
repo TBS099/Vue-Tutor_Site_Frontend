@@ -141,8 +141,8 @@ export default {
         body: JSON.stringify({
           name: orderData.name,
           phone: orderData.phone,
-          lessonIDs: this.cart.map((item) => item.id),
-          spaces: this.cart.reduce((total, item) => total + item.quantity, 0),
+          lessonIds: this.cart.map((item) => item.id),
+          total: this.cart.reduce((total, item) => total + item.price * item.quantity, 0)
         }),
       })
         .then((response) => response.json())
@@ -159,13 +159,16 @@ export default {
     },
 
     updateLessonSpaces(lessonId, newSpaces) {
-      fetch(`http://localhost:3000/lesson/${lessonId}`, {
+      fetch(`http://localhost:3000/lessons/${lessonId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ spaces: newSpaces }),
-      }).catch((error) => console.error('Error updating spaces:', error))
+      })
+      .then((res) => res.json())
+      .then((data) => console.log(`Updated lesson ${lessonId}:`, data))
+      .catch((error) => console.error("Error updating spaces:", error))
     },
 
     saveCartToStorage() {
