@@ -1,3 +1,4 @@
+/* Global Styles */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,6 +23,7 @@
   background: #b20510;
 }
 
+/* Checkout Message Section */
 .checkout-msg-div {
   text-align: center;
   margin-top: 50px;

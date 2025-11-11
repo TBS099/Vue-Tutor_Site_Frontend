@@ -1,21 +1,28 @@
 <template>
   <div id="app">
+    <!-- Navbar Section Start -->
     <SiteNavbar :cartCount="totalCartQuantity" @navigate="handleNavigation" />
+    <!-- Navbar Section End -->
 
     <main class="main-content">
+      <!-- Lesson List Section Start -->
       <LessonList
         v-if="currentView === 'lessons'"
         :lessons="lessons"
         @add-to-cart="addToCart"
       />
+      <!-- Lesson List Section End -->
 
+      <!-- Cart Section Start -->
       <StoreCart
         v-else-if="currentView === 'cart'"
         :cart="cart"
         @remove-from-cart="removeFromCart"
         @proceed-to-checkout="handleCheckout"
       />
+      <!-- Cart Section End -->
 
+      <!-- Checkout Success Section Start -->
       <div
         class="checkout-msg-div"
         v-else-if="currentView === 'checkout-success'"
@@ -28,11 +35,13 @@
           </button>
         </div>
       </div>
+      <!-- Checkout Success Section End -->
     </main>
   </div>
 </template>
 
 <script>
+// Importing necessary components and styles
 import SiteNavbar from "../Components/Navbar/Navbar.vue";
 import LessonList from "../Components/LessonList/LessonList.vue";
 import StoreCart from "../Components/StoreCart/StoreCart.vue";
@@ -47,17 +56,19 @@ export default {
   },
   data() {
     return {
-      currentView: "lessons",
-      lessons: [],
-      cart: [],
+      currentView: "lessons", // Tracks current page view
+      lessons: [], // Stores lesson data from backend
+      cart: [], // Stores cart items
     };
   },
   computed: {
+    // Calculates total quantity of items in cart
     totalCartQuantity() {
       return this.cart.reduce((sum, item) => sum + item.quantity, 0);
     },
   },
   created() {
+    // Load cart from localStorage and fetch lessons on app start
     this.loadCartFromStorage();
     this.fetchLessons();
   },
@@ -66,8 +77,8 @@ export default {
       this.currentView = view;
     },
 
+    // Fetch lessons from backend API
     fetchLessons() {
-      // Fetch lessons from backend API
       fetch("http://localhost:3000/lessons")
         .then((response) => response.json())
         .then((data) => {
@@ -79,80 +90,50 @@ export default {
         });
     },
 
+    // Adds a lesson to the cart and updates spaces
     addToCart(lesson) {
-      console.log(
-        "Adding to cart:",
-        lesson.subject,
-        "Spaces available:",
-        lesson.spaces
-      );
-
       if (lesson.spaces > 0) {
-        // Check if lesson already in cart
         const existingItem = this.cart.find((item) => item.id === lesson.id);
 
+        // If item already in cart, increase quantity
         if (existingItem) {
-          // Increase quantity if already in cart
           existingItem.quantity += 1;
-          console.log("Increased quantity to:", existingItem.quantity);
         } else {
-          // Add new item to cart with quantity
-          this.cart.push({
-            ...lesson,
-            quantity: 1,
-          });
-          console.log("Added new item to cart");
+          this.cart.push({ ...lesson, quantity: 1 });
         }
 
-        // Update available spaces in lessons list
+        // Decrease available spaces
         const lessonInList = this.lessons.find((l) => l.id === lesson.id);
-        if (lessonInList) {
-          lessonInList.spaces -= 1;
-          console.log("Updated spaces to:", lessonInList.spaces);
-        }
+        if (lessonInList) lessonInList.spaces -= 1;
 
         this.saveCartToStorage();
-
-        // Update spaces in backend
         this.updateLessonSpaces(lesson.id, lessonInList.spaces);
-      } else {
-        console.log("No spaces available for:", lesson.subject);
       }
     },
 
+    // Removes a lesson from the cart and restores spaces
     removeFromCart(lessonId) {
-      console.log("Removing from cart:", lessonId);
       const cartIndex = this.cart.findIndex((item) => item.id === lessonId);
 
       if (cartIndex !== -1) {
         const cartItem = this.cart[cartIndex];
-
-        // Restore spaces to lessons list
         const lessonInList = this.lessons.find((l) => l.id === lessonId);
-        if (lessonInList) {
-          lessonInList.spaces += cartItem.quantity;
-          console.log("Restored spaces to:", lessonInList.spaces);
-        }
+        if (lessonInList) lessonInList.spaces += cartItem.quantity;
 
-        // Remove from cart
         this.cart.splice(cartIndex, 1);
         this.saveCartToStorage();
 
-        // Update backend
-        if (lessonInList) {
+        // Update backend with restored spaces
+        if (lessonInList)
           this.updateLessonSpaces(lessonId, lessonInList.spaces);
-        }
       }
     },
 
+    // Sends order to backend and clears cart
     handleCheckout(orderData) {
-      console.log("Processing checkout for:", orderData);
-      // Send order to backend
       fetch("http://localhost:3000/orders", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: orderData.name,
           email: orderData.email,
@@ -165,13 +146,10 @@ export default {
         }),
       })
         .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
+          if (!response.ok) throw new Error("Network response was not ok");
           return response.json();
         })
-        .then((data) => {
-          console.log("Order placed:", data);
+        .then(() => {
           this.cart = [];
           this.saveCartToStorage();
           this.currentView = "checkout-success";
@@ -182,12 +160,11 @@ export default {
         });
     },
 
+    // Updates lesson spaces in backend
     updateLessonSpaces(lessonId, newSpaces) {
       fetch(`http://localhost:3000/lessons/${lessonId}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ spaces: newSpaces }),
       })
         .then((res) => res.json())
@@ -195,15 +172,15 @@ export default {
         .catch((error) => console.error("Error updating spaces:", error));
     },
 
+    // Saves cart to localStorage
     saveCartToStorage() {
       localStorage.setItem("shoppingCart", JSON.stringify(this.cart));
     },
 
+    // Loads cart from localStorage
     loadCartFromStorage() {
       const savedCart = localStorage.getItem("shoppingCart");
-      if (savedCart) {
-        this.cart = JSON.parse(savedCart);
-      }
+      if (savedCart) this.cart = JSON.parse(savedCart);
     },
   },
   watch: {

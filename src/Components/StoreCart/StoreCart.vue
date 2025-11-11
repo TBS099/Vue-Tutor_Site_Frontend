@@ -1,10 +1,16 @@
 <template>
+  <!-- Cart Page Component Start -->
   <div class="cart-page">
+    <!-- Cart Items Section Start -->
     <div class="cart-items">
       <h2>Your Cart</h2>
+
+      <!-- Empty Cart Message -->
       <div v-if="cart.length === 0">
         <p>Your cart is empty.</p>
       </div>
+
+      <!-- Cart Items List -->
       <div v-else>
         <div v-for="item in cart" :key="item.id" class="cart-item">
           <img :src="item.image" :alt="item.subject" class="cart-item-image" />
@@ -19,13 +25,17 @@
         </div>
       </div>
     </div>
+    <!-- Cart Items Section End -->
 
-    <!-- Checkout Section -->
+    <!-- Checkout Section Start -->
     <div class="checkout-section" v-if="cart.length > 0">
       <h2>Checkout</h2>
+
+      <!-- Checkout Form -->
       <form
         @submit.prevent="$emit('proceed-to-checkout', { name, email, phone })"
       >
+        <!-- Name Input -->
         <div>
           <label>Name:</label>
           <input
@@ -40,6 +50,7 @@
           </small>
         </div>
 
+        <!-- Email Input -->
         <div>
           <label>Email:</label>
           <input
@@ -60,6 +71,7 @@
           </small>
         </div>
 
+        <!-- Phone Input -->
         <div>
           <label>Phone:</label>
           <input
@@ -74,26 +86,32 @@
           </small>
         </div>
 
+        <!-- Order Summary -->
         <div class="order-summary">
           <h3>Order Summary</h3>
           <p>Total Items: {{ totalQuantity }}</p>
           <p>Total Amount: ${{ totalAmount }}</p>
         </div>
 
+        <!-- Submit Button -->
         <button type="submit" :disabled="!isFormValid" class="checkout btn">
           Place Order
         </button>
       </form>
     </div>
+    <!-- Checkout Section End -->
   </div>
+  <!-- Cart Page Component End -->
 </template>
 
 <script>
+// Importing CSS for StoreCart component
 import "./StoreCart.css";
 
 export default {
   name: "StoreCart",
   props: ["cart"],
+
   data() {
     return {
       name: "",
@@ -102,15 +120,20 @@ export default {
     };
   },
   computed: {
+    // Total amount of all items in the cart
     totalAmount() {
       return this.cart.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0
       );
     },
+
+    // Total quantity of all items in the cart
     totalQuantity() {
       return this.cart.reduce((sum, item) => sum + item.quantity, 0);
     },
+
+    // Validates the checkout form inputs
     isFormValid() {
       const validName = /^[A-Za-z ]+$/.test(this.name);
       const validEmail =

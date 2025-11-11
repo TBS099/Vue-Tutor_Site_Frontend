@@ -1,3 +1,4 @@
+/* Navbar Styles */
 .navbar {
   width: 80%;
   display: flex;
@@ -10,6 +11,7 @@
   margin: 0 auto;
 }
 
+/* Logo */
 .logo {
   margin: 0;
   margin-left: 20px;
@@ -17,6 +19,7 @@
   font-weight: bold;
 }
 
+/* Navigation Links */
 .navbar ul {
   list-style: none;
   display: flex;
@@ -43,12 +46,12 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Cart count badge */
-.nav-link[onclick*='cart'] {
+/* Cart Count Badge */
+.nav-link[onclick*="cart"] {
   position: relative;
 }
 
-.nav-link[onclick*='cart']::after {
+.nav-link[onclick*="cart"]::after {
   content: attr(data-count);
   position: absolute;
   top: -8px;

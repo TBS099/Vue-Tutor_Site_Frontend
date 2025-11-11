@@ -1,3 +1,4 @@
+/* Lesson List Container */
 .lesson-list-container {
   width: 95%;
   margin: 2rem auto;
@@ -50,7 +51,7 @@
   border-color: #e40714;
 }
 
-/* Price Range */
+/* Price Range Inputs */
 .price-inputs {
   display: flex;
   align-items: center;
@@ -88,7 +89,7 @@
   padding: 0.25rem 0;
 }
 
-.checkbox-label input[type='checkbox'] {
+.checkbox-label input[type="checkbox"] {
   margin: 0;
 }
 
@@ -144,8 +145,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  align-items: start;
 }
 
+/* No Results Message */
 .no-results {
   text-align: center;
   padding: 3rem;
