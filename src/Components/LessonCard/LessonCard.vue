@@ -1,7 +1,7 @@
 <template>
   <div class="lesson-card">
     <div class="card-img-container">
-      <img :src="lesson.image" alt="Lesson Image" class="lesson-image" />
+      <img :src="lesson.imageUrl" alt="Lesson Image" class="lesson-image" />
     </div>
     <h3 class="lesson-title">{{ lesson.subject }}</h3>
     <p class="lesson-location">Location: {{ lesson.location }}</p>
@@ -19,7 +19,7 @@
         @click="$emit('add-to-cart', lesson)"
         :disabled="lesson.spaces === 0"
       >
-        {{ lesson.spaces === 0 ? 'No Spaces' : 'Add to Cart' }}
+        {{ lesson.spaces === 0 ? "No Spaces" : "Add to Cart" }}
       </button>
     </div>
 
@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import './LessonCard.css'
+import "./LessonCard.css";
 
 export default {
-  name: 'LessonCard',
+  name: "LessonCard",
   props: {
     lesson: {
       type: Object,
@@ -47,11 +47,11 @@ export default {
           lesson.location &&
           lesson.price !== undefined &&
           lesson.spaces !== undefined
-        )
+        );
       },
     },
     isExpanded: { type: Boolean, default: false },
   },
-  emits: ['toggle', 'add-to-cart'],
-}
+  emits: ["toggle", "add-to-cart"],
+};
 </script>
