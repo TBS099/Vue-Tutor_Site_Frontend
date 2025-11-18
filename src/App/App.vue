@@ -79,7 +79,7 @@ export default {
 
     // Fetch lessons from backend API
     fetchLessons() {
-      fetch("http://localhost:3000/lessons")
+      fetch("https://vue-tutor-site-backend.onrender.com/lessons")
         .then((response) => response.json())
         .then((data) => {
           this.lessons = data;
@@ -131,7 +131,7 @@ export default {
 
     // Sends order to backend and clears cart
     handleCheckout(orderData) {
-      fetch("http://localhost:3000/orders", {
+      fetch("https://vue-tutor-site-backend.onrender.com/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -162,7 +162,7 @@ export default {
 
     // Updates lesson spaces in backend
     updateLessonSpaces(lessonId, newSpaces) {
-      fetch(`http://localhost:3000/lessons/${lessonId}`, {
+      fetch(`https://vue-tutor-site-backend.onrender.com/lessons/${lessonId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ spaces: newSpaces }),
