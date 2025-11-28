@@ -107,7 +107,6 @@ export default {
         if (lessonInList) lessonInList.spaces -= 1;
 
         this.saveCartToStorage();
-        this.updateLessonSpaces(lesson.id, lessonInList.spaces);
       }
     },
 
