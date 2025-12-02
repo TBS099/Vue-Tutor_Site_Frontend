@@ -13,7 +13,7 @@
       <!-- Cart Items List -->
       <div v-else>
         <div v-for="item in cart" :key="item.id" class="cart-item">
-          <img :src="item.image" :alt="item.subject" class="cart-item-image" />
+          <img :src="item.imageUrl" :alt="item.subject" class="cart-item-image" />
           <div class="cart-item-details">
             <h3>{{ item.subject }}</h3>
             <p>Location: {{ item.location }}</p>
